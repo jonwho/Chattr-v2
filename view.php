@@ -58,7 +58,8 @@
     // exists.
     $stmt = "SELECT username, salt FROM poster";
     $query = pg_query($stmt);
-    $row = pg_fetch_row($query);
+
+    while($row = pg_fetch_row($query)) {
     $hashuser = md5($urlName . $row[1]);
     $validUser = $hashuser;
     // if a row exists with that user then it's true
@@ -95,6 +96,7 @@
 <?php
         }
     }
+}
 ?>
     </TABLE>
     </TD></TR>
