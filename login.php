@@ -1,3 +1,12 @@
+<?php
+// don't let user jump to login.php
+if($_POST == null)
+{
+	header("Location: index.php");
+	exit;
+}
+?>
+
 <DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.2//EN">
 <HEAD>
     <TITLE>Chattr</TITLE>
@@ -21,12 +30,6 @@
 // This will send the user to view.php. To use this mechanism, the
 // statement must be executed before any of the document is output.
 
-// don't let user jump to login.php
-if($_POST == null)
-{
-	header("Location: index.php");
-	exit;
-}
 session_start();
 $host = "localhost";
 $user = "chattr";

@@ -1,21 +1,22 @@
+<?php
+	session_start();
+	$username = $_SESSION['username'];
+	// encode to html
+	$username = htmlentities($username);
+	// escape sql
+	$username = pg_escape_string($username);
+	if($username != null)
+	{
+		header("Location: view.php?user=$username");
+		exit;
+	}
+?>
+
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.2//EN">
 <HEAD>
 <TITLE>Chattr</TITLE>
 </HEAD>
 <BODY BGCOLOR=WHITE>
-	<?php
-		session_start();
-		$username = $_SESSION['username'];
-		// encode to html
-		$username = htmlentities($username);
-		// escape sql
-		$username = pg_escape_string($username);
-		if($username != null)
-		{
-			header("Location: view.php?user=$username");
-			exit;
-		}
-	?>
 <TABLE ALIGN="CENTER">
 <TR><TD>
 <H1>Chattr</H1>
