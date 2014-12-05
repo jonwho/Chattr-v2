@@ -42,16 +42,18 @@ $password = $_POST['PASS'];
 $password = htmlentities($password);
 // escape sql
 $password = pg_escape_string($password);
-// hash + salt the username and password, a salt is auto-generated when using crypt()
-$hashuser = crypt($username);
-$hashpass = crypt($password);
+
+// hash + salt the username and password
+$salt = uniqid(mt_rand(), true);
+$hashuser = md5($username . $salt);
+$hashpass = md5($password . $salt);
 if(isset($_POST['NEW'])) 
 {
 	// Your new user creation code goes here. If the user name
 	// already exists, then display an error. Otherwise, create a new
 	// user account and send him to view.php.
 
-	$stmt = "INSERT INTO poster(username, password) VALUES('$hashuser', '$hashpass')";
+	$stmt = "INSERT INTO poster(username, password) VALUES('$hashuser', '$hashpass', '$salt')";
 	$query = pg_query($con, $stmt);
 	if($query)
 	{
@@ -76,8 +78,10 @@ else
 	// Your user login code goes here. If the user name and password
 	// are not correct, then display an error. Otherwise, log in the
 	// user and send him to view.php.
-	$query = pg_query($con, "SELECT username FROM poster WHERE username='$hashuser' AND password='$hashpass'");
-	if(!$row = pg_fetch_row($query))
+	$query = pg_query($con, "SELECT username, password, salt FROM poster");
+	$testuser = md5($username . salt);
+	$testpass = md5($password . salt);
+	if(!($testuser == $query[0]) OR !($testpass == $query[1])
 	{
 		session_unset();
 ?>
