@@ -83,27 +83,28 @@ else
 	// are not correct, then display an error. Otherwise, log in the
 	// user and send him to view.php.
 	$query = pg_query($con, "SELECT username, salt, password FROM poster");
-	$row = pg_fetch_row($query);
-	$testuser = md5($username . $row[1]);
-	$testpass = md5($password . $row[1]);
-	if($testuser != $row[0] OR $testpass != $row[2])
+
+	while($row = pg_fetch_row($query)) 
 	{
-		session_unset();
+		$testuser = md5($username . $row[1]);
+		$testpass = md5($password . $row[1]);
+		if($testuser == $row[0] AND $testpass == $row[2])
+		{
+			$_SESSION['username'] = $username;
+			header("Location: view.php?user=$username");
+			exit;
+		}
+	}
+	session_unset();
 ?>
-		<TR>
-			<TD>
-				<H2><?php echo "Login Failed!" ?></H2>
-				<a href="index.php">Back</a>
-			</TD>
-		</TR>
+	<TR>
+				<TD>
+					<H2><?php echo "Login Failed!" ?></H2>
+					<a href="index.php">Back</a>
+				</TD>
+			</TR>
+
 <?php
-	}
-	else
-	{
-		$_SESSION['username'] = $username;
-		header("Location: view.php?user=$username");
-		exit;
-	}
 }
 ?>
 </TABLE>
