@@ -57,7 +57,8 @@
     // The following <TR> element should always appear if the user
     // exists.
     $stmt = "SELECT username, salt FROM poster";
-    $row = pg_fetch_row($stmt);
+    $query = pg_query($stmt);
+    $row = pg_fetch_row($query);
     $hashuser = md5($urlName . $row[1]);
     $validUser = $hashuser;
     // if a row exists with that user then it's true
