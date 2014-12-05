@@ -55,7 +55,7 @@ if(isset($_POST['NEW']))
 	$query = pg_query($con, $stmt);
 	if($query)
 	{
-		$_SESSION['username'] = $username;
+		$_SESSION['username'] = $hashuser;
 		header("Location: view.php?user=$username");
 	}
 	else
