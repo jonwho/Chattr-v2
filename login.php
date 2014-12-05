@@ -32,8 +32,14 @@ $con = pg_connect("host=$host port=5432 dbname=$db user=$user password=$pass") o
 if($_POST == null)
 	header("Location: index.php");
 
-$username = $_POST['USER'];
-$password = $_POST['PASS'];
+// encode to html
+$username = htmlentities(($_POST['USER']);
+// escape sql
+$username = pg_escape_string($username);
+// encode to html
+$password = htmlentities($_POST['PASS']);
+// escape sql
+$password = pg_escape_string($password);
 if(isset($_POST['NEW'])) 
 {
 	// Your new user creation code goes here. If the user name

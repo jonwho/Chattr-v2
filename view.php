@@ -14,14 +14,20 @@
     $pass = "toomanysecrets";
     $db = "chattr";
     $con = pg_connect("host=$host port=5432 dbname=$db user=$user password=$pass") or die ("Failed connection\n");
-    $urlName = $_GET['user'];
+    // encode to html
+    $urlName = htmlentities($_GET['user']);
+    // escape sql
+    $urlName = pg_escape_string($urlName);
 ?>
 
 <?php
 	// The following <TR> element should only appear if the user is
 	// logged in and viewing his own entry.
     session_start();
-    $username = $_SESSION['username'];
+    // encode to html
+    $username = htmlentities($_SESSION['username']);
+    // escape sql
+    $username = pg_escape_string($username);
 
     if($_GET == null and $username == null)
         header("Location: index.php");

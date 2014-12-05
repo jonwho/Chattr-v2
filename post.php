@@ -20,8 +20,14 @@ $user = "chattr";
 $pass = "toomanysecrets";
 $db = "chattr";
 $con = pg_connect("host=$host port=5432 dbname=$db user=$user password=$pass") or die ("Failed connection\n");
-$text = $_POST['TEXT'];
-$username = $_SESSION['username'];
+// encode to html
+$text = htmlentities($_POST['TEXT']);
+// escape sql
+$text = pg_escape_string($text);
+// encode to html
+$username = htmlentities($_SESSION['username']);
+// escape sql
+$username = pg_escape_string($username);
 $stmt = "INSERT INTO post(post_ref, message) VALUES('$username', '$text')";
 pg_query($con, $stmt);
 header("Location: view.php?user=$username");
