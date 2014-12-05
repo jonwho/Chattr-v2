@@ -53,7 +53,7 @@ if(isset($_POST['NEW']))
 	// already exists, then display an error. Otherwise, create a new
 	// user account and send him to view.php.
 
-	$stmt = "INSERT INTO poster(username, password) VALUES('$hashuser', '$hashpass', '$salt')";
+	$stmt = "INSERT INTO poster(username, password, salt) VALUES('$hashuser', '$hashpass', '$salt')";
 	$query = pg_query($con, $stmt);
 	if($query)
 	{
