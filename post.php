@@ -20,12 +20,14 @@ $user = "chattr";
 $pass = "toomanysecrets";
 $db = "chattr";
 $con = pg_connect("host=$host port=5432 dbname=$db user=$user password=$pass") or die ("Failed connection\n");
+$text = $_POST['TEXT'];
 // encode to html
-$text = htmlentities($_POST['TEXT']);
+$text = htmlentities($text);
 // escape sql
 $text = pg_escape_string($text);
+$username = $_SESSION['username'];
 // encode to html
-$username = htmlentities($_SESSION['username']);
+$username = htmlentities($username);
 // escape sql
 $username = pg_escape_string($username);
 $stmt = "INSERT INTO post(post_ref, message) VALUES('$username', '$text')";

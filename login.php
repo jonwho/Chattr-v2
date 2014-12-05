@@ -32,12 +32,14 @@ $con = pg_connect("host=$host port=5432 dbname=$db user=$user password=$pass") o
 if($_POST == null)
 	header("Location: index.php");
 
+$username = $_POST['USER'];
 // encode to html
-$username = htmlentities(($_POST['USER']);
+$username = htmlentities($username);
 // escape sql
 $username = pg_escape_string($username);
+$password = $_POST['PASS'];
 // encode to html
-$password = htmlentities($_POST['PASS']);
+$password = htmlentities($password);
 // escape sql
 $password = pg_escape_string($password);
 if(isset($_POST['NEW'])) 

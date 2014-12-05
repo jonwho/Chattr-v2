@@ -6,6 +6,10 @@
 	<?php
 		session_start();
 		$username = $_SESSION['username'];
+		// encode to html
+		$username = htmlentities($username);
+		// escape sql
+		$username = pg_escape_string($username);
 		if($username != null)
 			header("Location: view.php?user=$username");
 	?>
