@@ -86,7 +86,7 @@ else
 	$row = pg_fetch_row($query);
 	$testuser = md5($username . $row[1]);
 	$testpass = md5($password . $row[1]);
-	if(!($testuser == $row[0]) OR !($testpass == $row[2]))
+	if($testuser != $row[0] OR $testpass != $row[2])
 	{
 		session_unset();
 ?>
