@@ -53,7 +53,7 @@ if(isset($_POST['NEW']))
 	// already exists, then display an error. Otherwise, create a new
 	// user account and send him to view.php.
 
-	$stmt = "INSERT INTO poster(username, password, salt) VALUES('$hashuser', '$hashpass', '$salt')";
+	$stmt = "INSERT INTO poster(username, salt, password) VALUES('$hashuser', '$salt', '$hashpass')";
 	$query = pg_query($con, $stmt);
 	if($query)
 	{
@@ -78,11 +78,11 @@ else
 	// Your user login code goes here. If the user name and password
 	// are not correct, then display an error. Otherwise, log in the
 	// user and send him to view.php.
-	$query = pg_query($con, "SELECT username, password, salt FROM poster");
+	$query = pg_query($con, "SELECT username, salt, password FROM poster");
 	$row = $pg_fetch_row($query);
-	$testuser = md5($username . $row[2]);
-	$testpass = md5($password . $row[2]);
-	if(!($testuser == $row[0]) OR !($testpass == $row[1])
+	$testuser = md5($username . $row[1]);
+	$testpass = md5($password . $row[1]);
+	if(!($testuser == $row[0]) OR !($testpass == $row[2])
 	{
 		session_unset();
 ?>
