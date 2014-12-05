@@ -10,7 +10,7 @@
 <TR><TD>
 </TD></TR>
 <?php
-
+ini_set('display_errors', 1);
 // The login.php is invoked when the user is either trying to create a new
 // account or to login. If it's the former, the NEW parameter will be set.
 // To send a user to a different page (after possibly executing some code,

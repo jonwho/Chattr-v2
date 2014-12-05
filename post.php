@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 1);
 // Add your posting code here.
 // 
 // To send a user to a different page (after possibly executing some code,
