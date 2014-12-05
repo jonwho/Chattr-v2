@@ -36,11 +36,16 @@ $username = htmlentities($username);
 $username = pg_escape_string($username);
 
 // need to get the hashuser back
-$query = pg_query($con, "SELECT salt FROM poster");
-$row = pg_fetch_row($query);
-$hashuser = md5($username . $row[0]);
-$stmt = "INSERT INTO post(post_ref, message) VALUES('$hashuser', '$text')";
-pg_query($con, $stmt);
-header("Location: view.php?user=$username");
-exit;
+$query = pg_query($con, "SELECT username, salt FROM poster");
+while($row = pg_fetch_row($query))
+{
+	$hashuser = md5($username . $row[1]);
+	if($hashuser == $row[0])
+	{
+		$stmt = "INSERT INTO post(post_ref, message) VALUES('$hashuser', '$text')";
+		pg_query($con, $stmt);
+		header("Location: view.php?user=$username");
+		exit;
+	}
+}
 ?>

@@ -59,44 +59,45 @@
     $stmt = "SELECT username, salt FROM poster";
     $query = pg_query($stmt);
 
-    while($row = pg_fetch_row($query)) {
-    $hashuser = md5($urlName . $row[1]);
-    $validUser = $hashuser;
-    // if a row exists with that user then it's true
-    if($validUser == $row[0] or ($username != null and $_GET == null))
+    while($row = pg_fetch_row($query))
     {
-?>
-    <TR><TD>
-    <TABLE CELLPADDING=5>
-    <TR><TH>When</TH><TH>Who</TH><TH>What</TH></TR>
-<?php
-		// Display user's posts here. The structure is:
-		//
-		//     <TR>
-		//         <TD>DATE GOES HERE</TD>
-		//         <TD>USER NAME GOES HERE</TD>
-		//         <TD>MESSAGE TEXT GOES HERE</TD>
-		//     </TR>
-        $postStmt = "SELECT posttime, post_ref, message FROM post WHERE post_ref='$hashuser'";
-        // overwrite postStmt if $_GET is null
-        if($_GET == null)
+        $hashuser = md5($urlName . $row[1]);
+        $validUser = $hashuser;
+        // if a row exists with that user then it's true
+        if($validUser == $row[0] OR ($username != null and $_GET == null))
         {
-            $hashuser = md5($username . $row[1]);
+?>
+        <TR><TD>
+        <TABLE CELLPADDING=5>
+        <TR><TH>When</TH><TH>Who</TH><TH>What</TH></TR>
+<?php
+    		// Display user's posts here. The structure is:
+    		//
+    		//     <TR>
+    		//         <TD>DATE GOES HERE</TD>
+    		//         <TD>USER NAME GOES HERE</TD>
+    		//         <TD>MESSAGE TEXT GOES HERE</TD>
+    		//     </TR>
             $postStmt = "SELECT posttime, post_ref, message FROM post WHERE post_ref='$hashuser'";
-        }
-        $postQuery = pg_query($con, $postStmt);
-        while($row = pg_fetch_row($postQuery))
-        {
+            // overwrite postStmt if $_GET is null
+            if($_GET == null)
+            {
+                $hashuser = md5($username . $row[1]);
+                $postStmt = "SELECT posttime, post_ref, message FROM post WHERE post_ref='$hashuser'";
+            }
+            $postQuery = pg_query($con, $postStmt);
+            while($row = pg_fetch_row($postQuery))
+            {
 ?>
-            <TR>
-                <TD><?php echo "$row[0]" ?></TD>
-                <TD><?php echo "$row[1]" ?></TD>
-                <TD><?php echo "$row[2]" ?></TD>
-            </TR>
+                <TR>
+                    <TD><?php echo "$row[0]" ?></TD>
+                    <TD><?php echo "$row[1]" ?></TD>
+                    <TD><?php echo "$row[2]" ?></TD>
+                </TR>
 <?php
+            }
         }
     }
-}
 ?>
     </TABLE>
     </TD></TR>
