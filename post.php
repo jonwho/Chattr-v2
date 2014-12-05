@@ -16,7 +16,7 @@ session_start();
 if($_POST == null)
 {
 	header("Location: index.php");
-	exit();
+	exit;
 }
 
 $host = "localhost";
@@ -42,5 +42,5 @@ $hashuser = md5($username . $row[0]);
 $stmt = "INSERT INTO post(post_ref, message) VALUES('$hashuser', '$text')";
 pg_query($con, $stmt);
 header("Location: view.php?user=$username");
-exit();
+exit;
 ?>

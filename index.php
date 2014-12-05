@@ -14,7 +14,7 @@
 		if($username != null)
 		{
 			header("Location: view.php?user=$username");
-			exit();
+			exit;
 		}
 	?>
 <TABLE ALIGN="CENTER">

@@ -35,7 +35,7 @@
     if($_GET == null and $username == null)
     {
         header("Location: index.php");
-        exit();
+        exit;
     }
 
     // if logged in and no args on view.php still view self-posts

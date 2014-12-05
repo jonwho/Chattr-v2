@@ -32,7 +32,7 @@ $con = pg_connect("host=$host port=5432 dbname=$db user=$user password=$pass") o
 if($_POST == null)
 {
 	header("Location: index.php");
-	exit();
+	exit;
 }
 
 $username = $_POST['USER'];
@@ -62,7 +62,7 @@ if(isset($_POST['NEW']))
 	{
 		$_SESSION['username'] = $username;
 		header("Location: view.php?user=$username");
-		exit();
+		exit;
 	}
 	else
 	{
@@ -102,7 +102,7 @@ else
 	{
 		$_SESSION['username'] = $username;
 		header("Location: view.php?user=$username");
-		exit();
+		exit;
 	}
 }
 ?>
