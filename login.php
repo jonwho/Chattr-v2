@@ -44,7 +44,7 @@ $password = htmlentities($password);
 $password = pg_escape_string($password);
 
 // hash + salt the username and password
-$salt = uniqid(mt_rand(), true);
+$salt = bin2hex(openssl_random_pseudo_bytes(25));
 $hashuser = md5($username . $salt);
 $hashpass = md5($password . $salt);
 if(isset($_POST['NEW'])) 
