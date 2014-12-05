@@ -31,7 +31,12 @@ $username = $_SESSION['username'];
 $username = htmlentities($username);
 // escape sql
 $username = pg_escape_string($username);
-$stmt = "INSERT INTO post(post_ref, message) VALUES('$username', '$text')";
+
+// need to get the hashuser back
+$query = pg_query($con, "SELECT salt FROM poster");
+$row = pg_fetch_row($query);
+$hashuser = md5($username . $row[0]);
+$stmt = "INSERT INTO post(post_ref, message) VALUES('$hashuser', '$text')";
 pg_query($con, $stmt);
 header("Location: view.php?user=$username");
 ?>
