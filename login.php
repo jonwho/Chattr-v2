@@ -91,18 +91,19 @@ else
 		if($testuser == $row[0] AND $testpass == $row[2])
 		{
 			$_SESSION['username'] = $username;
-			header("Location: view.php?user=$username");
-			exit;
+			break;
 		}
 	}
+	header("Location: view.php?user=$username");
+	exit;
 	session_unset();
 ?>
 	<TR>
-				<TD>
-					<H2><?php echo "Login Failed!" ?></H2>
-					<a href="index.php">Back</a>
-				</TD>
-			</TR>
+		<TD>
+			<H2><?php echo "Login Failed!" ?></H2>
+			<a href="index.php">Back</a>
+		</TD>
+	</TR>
 
 <?php
 }

@@ -47,6 +47,6 @@ while($row = pg_fetch_row($query))
 	}
 }
 pg_query($con, $stmt);
-		header("Location: view.php?user=$username");
-		exit;
+header("Location: view.php?user=$username");
+exit;
 ?>
