@@ -43,9 +43,10 @@ while($row = pg_fetch_row($query))
 	if($hashuser == $row[0])
 	{
 		$stmt = "INSERT INTO post(post_ref, message) VALUES('$hashuser', '$text')";
-		pg_query($con, $stmt);
-		header("Location: view.php?user=$username");
-		exit;
+		break;
 	}
 }
+pg_query($con, $stmt);
+		header("Location: view.php?user=$username");
+		exit;
 ?>
