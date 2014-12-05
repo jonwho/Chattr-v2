@@ -4,7 +4,7 @@
 </HEAD>
 <BODY BGCOLOR=WHITE>
 	<?php
-		ini_set('display_errors', 1);
+		
 		session_start();
 		$username = $_SESSION['username'];
 		// encode to html
