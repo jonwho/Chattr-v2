@@ -14,7 +14,10 @@ session_start();
 
 // don't let user jump to here
 if($_POST == null)
+{
 	header("Location: index.php");
+	exit();
+}
 
 $host = "localhost";
 $user = "chattr";
@@ -39,4 +42,5 @@ $hashuser = md5($username . $row[0]);
 $stmt = "INSERT INTO post(post_ref, message) VALUES('$hashuser', '$text')";
 pg_query($con, $stmt);
 header("Location: view.php?user=$username");
+exit();
 ?>

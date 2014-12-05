@@ -12,7 +12,10 @@
 		// escape sql
 		$username = pg_escape_string($username);
 		if($username != null)
+		{
 			header("Location: view.php?user=$username");
+			exit();
+		}
 	?>
 <TABLE ALIGN="CENTER">
 <TR><TD>
