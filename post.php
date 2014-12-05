@@ -34,7 +34,6 @@ $username = $_SESSION['username'];
 $username = htmlentities($username);
 // escape sql
 $username = pg_escape_string($username);
-
 // need to get the hashuser back
 $query = pg_query($con, "SELECT username, salt FROM poster");
 while($row = pg_fetch_row($query))

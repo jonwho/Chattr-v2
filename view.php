@@ -1,13 +1,3 @@
-<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.2//EN">
-<HEAD>
-    <TITLE>Chattr</TITLE>
-</HEAD>
-<BODY BGCOLOR=WHITE>
-<TABLE ALIGN="CENTER">
-<TR><TD>
-<H1>Chattr</H1>
-</TD></TR>
-
 <?php
     
     $host = "localhost";
@@ -20,11 +10,7 @@
     $urlName = htmlentities($urlName);
     // escape sql
     $urlName = pg_escape_string($urlName);
-?>
 
-<?php
-	// The following <TR> element should only appear if the user is
-	// logged in and viewing his own entry.
     session_start();
     $username = $_SESSION['username'];
     // encode to html
@@ -37,6 +23,21 @@
         header("Location: index.php");
         exit;
     }
+?>
+
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.2//EN">
+<HEAD>
+    <TITLE>Chattr</TITLE>
+</HEAD>
+<BODY BGCOLOR=WHITE>
+<TABLE ALIGN="CENTER">
+<TR><TD>
+<H1>Chattr</H1>
+</TD></TR>
+
+<?php
+	// The following <TR> element should only appear if the user is
+	// logged in and viewing his own entry.
 
     // if logged in and no args on view.php still view self-posts
     if($username == $urlName or ($username != null and $_GET == null))

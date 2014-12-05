@@ -21,19 +21,18 @@
 // This will send the user to view.php. To use this mechanism, the
 // statement must be executed before any of the document is output.
 
-session_start();
-$host = "localhost";
-$user = "chattr";
-$pass = "toomanysecrets";
-$db = "chattr";
-$con = pg_connect("host=$host port=5432 dbname=$db user=$user password=$pass") or die ("Failed connection\n");
-
 // don't let user jump to login.php
 if($_POST == null)
 {
 	header("Location: index.php");
 	exit;
 }
+session_start();
+$host = "localhost";
+$user = "chattr";
+$pass = "toomanysecrets";
+$db = "chattr";
+$con = pg_connect("host=$host port=5432 dbname=$db user=$user password=$pass") or die ("Failed connection\n");
 
 $username = $_POST['USER'];
 // encode to html
@@ -91,11 +90,10 @@ else
 		if($testuser == $row[0] AND $testpass == $row[2])
 		{
 			$_SESSION['username'] = $username;
-			break;
+			header("Location: view.php?user=$username");
+			exit;
 		}
 	}
-	header("Location: view.php?user=$username");
-	exit;
 	session_unset();
 ?>
 	<TR>
