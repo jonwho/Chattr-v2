@@ -79,9 +79,10 @@ else
 	// are not correct, then display an error. Otherwise, log in the
 	// user and send him to view.php.
 	$query = pg_query($con, "SELECT username, password, salt FROM poster");
-	$testuser = md5($username . salt);
-	$testpass = md5($password . salt);
-	if(!($testuser == $query[0]) OR !($testpass == $query[1])
+	$row = $pg_fetch_row($query);
+	$testuser = md5($username . $row[2]);
+	$testpass = md5($password . $row[2]);
+	if(!($testuser == $row[0]) OR !($testpass == $row[1])
 	{
 		session_unset();
 ?>
